@@ -51,8 +51,8 @@
             "Dist_Yavatmal"
         ],
         "metrics": {
-            "test_r2": 0.5735,
-            "test_rmse": 1.922
+            "test_r2": 0.5734965098303284,
+            "test_rmse": 1.9219719203818306
         },
         "hyperparameters": {
             "subsample": 0.85,
@@ -127,8 +127,8 @@
             "Dist_Yavatmal"
         ],
         "metrics": {
-            "test_r2": 0.5071,
-            "test_rmse": 2.041
+            "test_r2": 0.507109294228873,
+            "test_rmse": 2.035893375364488
         },
         "hyperparameters": {
             "subsample": 0.85,

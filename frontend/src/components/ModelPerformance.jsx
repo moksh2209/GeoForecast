@@ -83,8 +83,8 @@ const ModelPerformance = () => {
                   <p className="text-xs text-slate-600 font-medium">Maharashtra-level production model selection.</p>
                 </div>
                 <div>
-                  <span className="inline-block px-2 py-0.5 bg-slate-200 text-slate-700 text-[10px] font-bold rounded mb-1">Experiment 6</span>
-                  <p className="text-xs text-slate-600 font-medium">District-level spatial modeling baseline.</p>
+                  <span className="inline-block px-2 py-0.5 bg-slate-200 text-slate-700 text-[10px] font-bold rounded mb-1">Experiment 6 & 8</span>
+                  <p className="text-xs text-slate-600 font-medium">District production results combine the final Experiment 8 optimized XGBoost models for +1/+3 months with the retained Experiment 6 Random Forest model for +6 months.</p>
                 </div>
               </div>
             </div>
@@ -162,7 +162,7 @@ const ModelPerformance = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className="text-amber-700 font-black tabular-nums tracking-tight text-base">
-                            {model.test_rmse?.toFixed(3)}
+                            {model.test_rmse ? model.test_rmse.toFixed(3) : '—'}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-slate-500 font-medium text-xs">
