@@ -1,7 +1,7 @@
 import React from 'react';
 import { Calendar, BrainCircuit, Droplets } from 'lucide-react';
 
-const ForecastCard = ({ horizon, forecast, loading, error }) => {
+const ForecastCard = ({ horizon, forecast, loading, error, inputDate = '2025-10-01' }) => {
   if (loading) {
     return (
       <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm animate-pulse h-48">
@@ -25,9 +25,13 @@ const ForecastCard = ({ horizon, forecast, loading, error }) => {
 
   const isPositive = forecast.predicted_change_m_bgl > 0;
   
-  // Directly use the API provided date
-  const forecastDate = forecast.forecast_date ? forecast.forecast_date.split('T')[0] : 'N/A';
-  const inputDate = '2025-10-01'; // Given by system status
+  // Use the API provided date, but if the backend returned the base input date without adding the horizon, compute it dynamically.
+  let forecastDate = forecast.forecast_date ? forecast.forecast_date.split('T')[0] : 'N/A';
+  if (forecastDate !== 'N/A' && forecastDate === inputDate) {
+    const d = new Date(inputDate);
+    d.setUTCMonth(d.getUTCMonth() + horizon);
+    forecastDate = d.toISOString().split('T')[0];
+  }
   
   return (
     <div className="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col relative overflow-hidden group">

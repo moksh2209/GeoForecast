@@ -20,12 +20,7 @@ const CustomTooltip = ({ active, payload, label }) => {
         </div>
       );
     } else {
-      const forecastHorizons = {
-        '2025-11-01': '+1 Month',
-        '2026-01-01': '+3 Months',
-        '2026-04-01': '+6 Months'
-      };
-      const horizonLabel = forecastHorizons[label] || 'Forecast';
+      const horizonLabel = data.horizon ? `+${data.horizon} Month${data.horizon > 1 ? 's' : ''}` : 'Forecast';
       return (
         <div className="bg-white p-3 border border-slate-200 rounded-lg shadow-lg">
           <p className="text-sm font-bold text-slate-800 mb-1">{label}</p>
@@ -100,9 +95,9 @@ const DistrictExplorer = () => {
   // Prepare chart data
   const chartData = [...history.map(r => ({ ...r, type: 'historical' }))];
   
-  if (forecasts[1]) chartData.push({ date: forecasts[1].forecast_date ? forecasts[1].forecast_date.split('T')[0] : '2025-11-01', forecast_level: forecasts[1].predicted_groundwater_level_m_bgl, type: 'forecast' });
-  if (forecasts[3]) chartData.push({ date: forecasts[3].forecast_date ? forecasts[3].forecast_date.split('T')[0] : '2026-01-01', forecast_level: forecasts[3].predicted_groundwater_level_m_bgl, type: 'forecast' });
-  if (forecasts[6]) chartData.push({ date: forecasts[6].forecast_date ? forecasts[6].forecast_date.split('T')[0] : '2026-04-01', forecast_level: forecasts[6].predicted_groundwater_level_m_bgl, type: 'forecast' });
+  if (forecasts[1]) chartData.push({ date: forecasts[1].forecast_date ? forecasts[1].forecast_date.split('T')[0] : '2025-11-01', forecast_level: forecasts[1].predicted_groundwater_level_m_bgl, type: 'forecast', horizon: 1 });
+  if (forecasts[3]) chartData.push({ date: forecasts[3].forecast_date ? forecasts[3].forecast_date.split('T')[0] : '2026-01-01', forecast_level: forecasts[3].predicted_groundwater_level_m_bgl, type: 'forecast', horizon: 3 });
+  if (forecasts[6]) chartData.push({ date: forecasts[6].forecast_date ? forecasts[6].forecast_date.split('T')[0] : '2026-04-01', forecast_level: forecasts[6].predicted_groundwater_level_m_bgl, type: 'forecast', horizon: 6 });
 
   // Filter to last 5 years for better visibility
   const recentChartData = chartData.filter(d => {
@@ -111,6 +106,7 @@ const DistrictExplorer = () => {
   });
 
   const latestHistory = history.length > 0 ? history[history.length - 1] : null;
+  const latestDate = latestHistory ? latestHistory.date : 'N/A';
 
   if (loadingDistricts) {
     return <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div></div>;
@@ -158,7 +154,7 @@ const DistrictExplorer = () => {
                 </div>
                 <div className="flex items-center text-slate-600 bg-slate-50 px-3 py-1.5 rounded-md border border-slate-100">
                   <span className="font-medium mr-2 text-slate-500">Latest observation date:</span>
-                  <strong className="text-slate-800">2025-10-01</strong>
+                  <strong className="text-slate-800">{latestDate}</strong>
                 </div>
                 <div className="flex items-center text-slate-600 bg-emerald-50 px-3 py-1.5 rounded-md border border-emerald-100">
                   <span className="font-medium mr-2 text-emerald-700">Forecast availability:</span>
@@ -176,7 +172,7 @@ const DistrictExplorer = () => {
                 </div>
                 <div className="flex justify-between items-center text-sm">
                   <span className="text-slate-500">Latest observation</span>
-                  <span className="font-bold text-slate-800">2025-10-01</span>
+                  <span className="font-bold text-slate-800">{latestDate}</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                   <span className="text-slate-500">Available observations</span>
@@ -210,7 +206,7 @@ const DistrictExplorer = () => {
                   <div className="flex items-center text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
                     <Calendar className="w-3.5 h-3.5 mr-1.5" /> Observation Date
                   </div>
-                  <div className="text-xl font-bold text-slate-800">2025-10-01</div>
+                  <div className="text-xl font-bold text-slate-800">{latestDate}</div>
                 </div>
                 <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
                   <div className="flex items-center text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
@@ -258,9 +254,9 @@ const DistrictExplorer = () => {
           <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
             <h3 className="text-xl font-bold text-slate-800 mb-5">District Forecasts</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <ForecastCard horizon={1} forecast={forecasts[1]} loading={loadingData} />
-              <ForecastCard horizon={3} forecast={forecasts[3]} loading={loadingData} />
-              <ForecastCard horizon={6} forecast={forecasts[6]} loading={loadingData} />
+              <ForecastCard horizon={1} forecast={forecasts[1]} loading={loadingData} inputDate={latestDate} />
+              <ForecastCard horizon={3} forecast={forecasts[3]} loading={loadingData} inputDate={latestDate} />
+              <ForecastCard horizon={6} forecast={forecasts[6]} loading={loadingData} inputDate={latestDate} />
             </div>
           </div>
 
@@ -299,7 +295,7 @@ const DistrictExplorer = () => {
                     />
                     <RechartsTooltip content={<CustomTooltip />} />
                     <Legend wrapperStyle={{ paddingTop: '20px' }} iconType="circle" />
-                    <ReferenceLine x="2025-10-01" stroke="#94a3b8" strokeDasharray="4 4" label={{ position: 'top', value: 'Today', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }} />
+                    <ReferenceLine x={latestDate !== 'N/A' ? latestDate : "2025-10-01"} stroke="#94a3b8" strokeDasharray="4 4" label={{ position: 'top', value: 'Today', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }} />
                     
                     <Line 
                       type="monotone" 
