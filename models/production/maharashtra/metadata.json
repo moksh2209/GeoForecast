@@ -1,0 +1,70 @@
+{
+    "h1": {
+        "experiment": 5,
+        "geographic_level": "maharashtra",
+        "forecast_horizon": "1 month",
+        "model_type": "XGBoost",
+        "feature_list": [
+            "GRACE_TWS",
+            "Rainfall",
+            "Temperature",
+            "ONI",
+            "MEI",
+            "Groundwater_Mean",
+            "Groundwater_Well_Count",
+            "GRACE_Missing"
+        ],
+        "test_R2": 0.61,
+        "test_RMSE": 1.14,
+        "test_sample_count": 30,
+        "model_version": "experiment5",
+        "artifact_source": "models/final/tplus1/xgboost_Groundwater_t+1.joblib"
+    },
+    "h3": {
+        "experiment": 5,
+        "geographic_level": "maharashtra",
+        "forecast_horizon": "3 months",
+        "model_type": "XGBoost",
+        "feature_list": [
+            "GRACE_TWS",
+            "Rainfall",
+            "Temperature",
+            "ONI",
+            "MEI",
+            "Groundwater_Mean",
+            "Groundwater_Well_Count",
+            "GRACE_Missing"
+        ],
+        "test_R2": 0.55,
+        "test_RMSE": 1.31,
+        "test_sample_count": 27,
+        "model_version": "experiment5",
+        "artifact_source": "models/final/tplus3/xgboost_Groundwater_t+3.joblib"
+    },
+    "h6": {
+        "experiment": 5,
+        "geographic_level": "maharashtra",
+        "forecast_horizon": "6 months",
+        "model_type": "Regularized XGBoost",
+        "feature_list": [
+            "GRACE_TWS",
+            "Rainfall",
+            "Temperature",
+            "ONI",
+            "MEI",
+            "Groundwater_Mean",
+            "Groundwater_Well_Count",
+            "GRACE_Missing",
+            "ONI_Lag_1",
+            "Groundwater_Rolling_3M",
+            "Rainfall_Rolling_3M",
+            "Temperature_Lag_1",
+            "Sin_Month"
+        ],
+        "test_R2": 0.51,
+        "test_RMSE": 1.51,
+        "test_sample_count": 23,
+        "model_version": "experiment5",
+        "artifact_source": "models/final/tplus6/xgboost_Groundwater_t+6.joblib"
+    }
+}

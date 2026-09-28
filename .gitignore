@@ -1,0 +1,29 @@
+node_modules/
+frontend/node_modules/
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+.vscode/
+.idea/
+
+dist/
+build/
+frontend/dist/
+
+*.log
+
+.env
+.env.*
+!.env.example
+
+# Large Data files
+data/raw/
+data/processed/
+reports/
+
+# But include models? Wait, some joblib models might be 100+ MBs. I will check their size using script.
+# For now, assume production models are small enough.

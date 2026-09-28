@@ -1,0 +1,96 @@
+{
+    "Groundwater_t+1": {
+        "selected_candidate": "Candidate A",
+        "horizon": "Groundwater_t+1",
+        "features": [
+            "GRACE_TWS",
+            "Rainfall",
+            "Temperature",
+            "ONI",
+            "MEI",
+            "Groundwater_Mean",
+            "Groundwater_Well_Count",
+            "GRACE_Missing"
+        ],
+        "preprocessing_method": "median imputation, dropped NaNs for training",
+        "grace_imputation_method": "training_median",
+        "xgboost_parameters": {
+            "n_estimators": 100,
+            "max_depth": 4,
+            "learning_rate": 0.1
+        },
+        "training_date_range": "2002-04-01 to 2017-05-01",
+        "validation_date_range": "2017-06-01 to 2021-06-01",
+        "test_date_range": "2021-09-01 to 2025-10-01",
+        "test_sample_count": 30,
+        "MAE": 0.8685884902768,
+        "RMSE": 1.14125429584681,
+        "R2": 0.6106533845301425
+    },
+    "Groundwater_t+3": {
+        "selected_candidate": "Candidate A",
+        "horizon": "Groundwater_t+3",
+        "features": [
+            "GRACE_TWS",
+            "Rainfall",
+            "Temperature",
+            "ONI",
+            "MEI",
+            "Groundwater_Mean",
+            "Groundwater_Well_Count",
+            "GRACE_Missing"
+        ],
+        "preprocessing_method": "median imputation, dropped NaNs for training",
+        "grace_imputation_method": "training_median",
+        "xgboost_parameters": {
+            "n_estimators": 100,
+            "max_depth": 4,
+            "learning_rate": 0.1
+        },
+        "training_date_range": "2002-04-01 to 2017-05-01",
+        "validation_date_range": "2017-06-01 to 2021-06-01",
+        "test_date_range": "2021-09-01 to 2025-10-01",
+        "test_sample_count": 27,
+        "MAE": 0.9736228895308826,
+        "RMSE": 1.3077328572517157,
+        "R2": 0.548867231307697
+    },
+    "Groundwater_t+6": {
+        "selected_candidate": "Candidate B",
+        "horizon": "Groundwater_t+6",
+        "features": [
+            "GRACE_TWS",
+            "Rainfall",
+            "Temperature",
+            "ONI",
+            "MEI",
+            "Groundwater_Mean",
+            "Groundwater_Well_Count",
+            "GRACE_Missing",
+            "ONI_Lag_1",
+            "Groundwater_Rolling_3M",
+            "Rainfall_Rolling_3M",
+            "Temperature_Lag_1",
+            "Sin_Month"
+        ],
+        "preprocessing_method": "median imputation, dropped NaNs for training",
+        "grace_imputation_method": "training_median",
+        "xgboost_parameters": {
+            "subsample": 0.85,
+            "reg_lambda": 5,
+            "reg_alpha": 0.5,
+            "n_estimators": 50,
+            "min_child_weight": 1,
+            "max_depth": 4,
+            "learning_rate": 0.05,
+            "colsample_bytree": 1.0
+        },
+        "training_date_range": "2002-04-01 to 2017-05-01",
+        "validation_date_range": "2017-06-01 to 2021-06-01",
+        "test_date_range": "2021-09-01 to 2025-10-01",
+        "test_sample_count": 23,
+        "MAE": 1.2309489533338343,
+        "RMSE": 1.509565693925254,
+        "R2": 0.5081380467798906
+    }
+}
