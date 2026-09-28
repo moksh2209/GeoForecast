@@ -27,3 +27,5 @@ reports/
 
 # But include models? Wait, some joblib models might be 100+ MBs. I will check their size using script.
 # For now, assume production models are small enough.
+
+geoforecast.db
